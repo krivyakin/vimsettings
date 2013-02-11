@@ -1,17 +1,41 @@
-set tabstop=4
+set tabstop=4  
 set autoindent
-set nu
+set nu 
+	
 hi ColorColumn ctermbg=DarkGray
 set colorcolumn=80
 filetype plugin on
 set tags+=~/.vim/tags
 command GD !git diff %
+let g:clang_user_options='|| exit 0'
+ " Complete options (disable preview scratch window)
+set completeopt=menu,menuone,longest
+ " Limit popup menu height
+set pumheight=15
+ 
+ " SuperTab option for context aware completion
+ let g:SuperTabDefaultCompletionType = "context"
+ 
+ " Disable auto popup, use <Tab> to autocomplete
+ let g:clang_complete_auto = 0
+ " Show clang errors in the quickfix window
+ let g:clang_complete_copen = 1
+
 " TagList
 let g:Tlist_Show_One_File=1
 let g:Tlist_GainFocus_On_ToggleOpen=1
 let g:Tlist_Auto_Highlight_Tag=1
-
-source ~/.vim/autotag.vim
+	
+	
+highlight OverLength ctermbg=red guibg=#592929
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+"source ~/.vim/autotag/autotag.vim
+"autocmd BufWritePost,FileWritePost * call AutoTag ()
 function! DelTagOfFile(file)
   let fullpath = a:file
   let cwd = getcwd()
@@ -26,14 +50,15 @@ function! UpdateTags()
   let f = expand("%:p")
   let cwd = getcwd()
   let tagfilename = cwd . "/tags"
-  let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
+  let cmd = 'find . -name "*.[ch]" -exec ctags -a {} \;'
   call DelTagOfFile(f)
   let resp = system(cmd)
 endfunction
-autocmd BufWritePost *.cpp,*.h,*.c call UpdateTags()
+"autocmd BufWritePost,FileWritePost *.cpp,*.h,*.c call UpdateTags()
 
 
 "autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+imap ij <Esc>
 
 nmap <C-g> <Esc>:cs f c <cword><cr>
 vmap <C-g> <Esc>:cs f c <cword><cr>
