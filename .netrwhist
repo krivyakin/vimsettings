@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/kkrivyakin/linux-3.4-exynos/Documentation'
+let g:netrw_dirhist_2='/tmp/logd-0.0.1/src/libactivity-data'
+let g:netrw_dirhist_3='/home/kkrivyakin/develop/logd/out.txt'
+let g:netrw_dirhist_4='/home/kkrivyakin/gerrit/framework/api/device'
+let g:netrw_dirhist_5='/home/kkrivyakin/gerrit/magnolia/framework/connectivity/libnet-client'
+let g:netrw_dirhist_6='/home/kkrivyakin/gerrit/magnolia/framework/connectivity/libnet-client/include'
+let g:netrw_dirhist_7='/usr/src/linux-source-3.2.0/linux-source-3.2.0'
+let g:netrw_dirhist_8='/home/kkrivyakin/.vim/plugin/clang'
+let g:netrw_dirhist_9='/home/kkrivyakin/trash/linux-3.4-exynos/Documentation/power/regulator'

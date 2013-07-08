@@ -2,27 +2,29 @@ set tabstop=8
 set autoindent
 set nu
 
-set list listchars=tab:·\ ,trail:·,extends:»,precedes:«
+set list listchars=tab:·\ ,trail:\ ,extends:»,precedes:«
+
 set laststatus=2
-set statusline=[%{GitBranch()}]\ 
+set statusline=[%{GitBranch()}]
 set statusline+=%<\                       " cut at start
 set statusline+=%2*%H%M%R%W%*\        " flags and buf no
 set statusline+=%-40f\                    " path
 set statusline+=%10(%l,%c%)\            " line and column
 set statusline+=%=%P                        " percentage of file
+
 let g:clang_close_preview=1
-" let g:clang_user_options = '-std=c++11'
 let g:clang_complete_copen=1
 let g:clang_complete_auto = 1
-"let g:clang_periodic_quickfix = 1
 let g:clang_complete_macros = 1
-set makeprg=gbs\ build\ -A\ armv7l\ --keep-packs\ --include-all\ --noinit
+
+let &makeprg='gbs build -A armv7l --keep-packs --include-all --noinit 2>&1 \\\| grep :\ error:\   | tee'
+
 hi ColorColumn ctermbg=DarkGray
 set colorcolumn=80
+
 filetype plugin on
+
 set tags+=~/.vim/tags
-" SuperTab option for context aware completion
-" let g:SuperTabDefaultCompletionType = "context"
 
 " TagList
 let g:Tlist_Show_One_File=1
@@ -34,7 +36,6 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 nmap <C-g> <Esc>:cs f c <cword><cr>
