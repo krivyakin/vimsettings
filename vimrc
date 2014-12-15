@@ -1,10 +1,13 @@
 set nocompatible
 set nu
-set tabstop=8
-set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+"set autoindent
 "set list
 set virtualedit=onemore
-set cursorline
+"set cursorline
 set listchars=tab:⋅\ ,trail:\ ,nbsp:\ 
 
 " set the runtime path to include Vundle and initialize
@@ -23,6 +26,8 @@ Plugin 'vim-scripts/highlight.vim'
 "Plugin 'Lokaltog/vim-easymotion'
 Plugin 'vim-scripts/idutils'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/Conque-GDB'
+Plugin 'Shougo/vimproc.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -55,7 +60,7 @@ imap <C-g> <esc>:BufExplorer<cr>
 
 " Column
 hi ColorColumn ctermbg=Gray
-set colorcolumn=80
+set colorcolumn=100
 
 " TagList
 let g:Tlist_Show_One_File=1
@@ -63,15 +68,16 @@ let g:Tlist_GainFocus_On_ToggleOpen=1
 let g:Tlist_Auto_Highlight_Tag=1
 
 " Unite
-let g:unite_source_rec_max_cache_files=10000
+"let g:unite_source_rec_max_cache_files=10000
+let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup -g "cpp"'
 
 " Extra space
-highlight OverLength ctermbg=red guibg=red
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd BufWinLeave * call clearmatches()
+"highlight OverLength ctermbg=red guibg=red
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"autocmd BufWinLeave * call clearmatches()
 
 "nmap <C-g> <Esc>:cs f c <cword><cr>
 "vmap <C-g> <Esc>:cs f c <cword><cr>
@@ -93,8 +99,8 @@ nmap <C-f> <Esc>:NERDTreeToggle<cr>
 vmap <C-f> <Esc>:NERDTreeToggle<cr>
 imap <C-f> <Esc>:NERDTreeToggle<cr>
 
-nmap <S-f> <Esc>:Unite file_rec<cr>
-vmap <S-f> <Esc>:Unite file_rec<cr>
+nmap <S-f> <Esc>:Unite file_rec/async<cr>
+vmap <S-f> <Esc>:Unite file_rec/async<cr>
 "imap <M-f> <Esc>:Unite file_rec<cr>
 
 nmap <F3> <Esc>:belowright cwindow<cr>
@@ -197,5 +203,5 @@ function! RotateFEnc()
   endwhile
 endfunction
 
-set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %b\ 0x%B\ %l,%c%V\ %P
-set laststatus=2
+"set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %b\ 0x%B\ %l,%c%V\ %P
+"set laststatus=2
